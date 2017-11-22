@@ -1,6 +1,7 @@
 package com.avenue.com.avenue.product.service;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.transaction.Transactional;
 
@@ -34,12 +35,14 @@ public class ProductService {
 
 	@Transactional
 	public void createProduct(Product product) {
+		validateProductParent(product.getParentProduct());
 		this.productRespository.save(product);
 	}
 
 	@Transactional
 	public void updateProduct(Long id, Product product) {
 		product.setId(id);
+		validateProductParent(product.getParentProduct());
 		this.productRespository.save(product);
 	}
 
@@ -60,5 +63,12 @@ public class ProductService {
 
 	public List<ProductDTO> getChildrenByProduct(Long id) {
 		return ProductConverter.convert(this.productRespository.findByParentProduct_Id(id));
+	}
+	
+	private void validateProductParent(Product parent) {
+		if (Objects.nonNull(parent)) {
+			this.productRespository.findById(parent.getId())
+					.orElseThrow(() -> new IllegalArgumentException("Product " + parent.getId() + " does not exist"));
+		}
 	}
 }
