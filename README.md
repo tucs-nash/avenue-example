@@ -97,8 +97,12 @@ curl http://localhost:8080/products/1/complete
 
 ### Get set of images for specific product
 
+```
 curl http://localhost:8080/products/1/images
+```
 
 ### Get set of child products for specific product
 
+```
 curl http://localhost:8080/products/1/children
+```
