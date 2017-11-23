@@ -31,6 +31,7 @@ public class ImageService {
 
 	@Transactional
 	public void updateImage(Long id, Image image, Long productId) {
+		checkIfExistImage(id);
 		image.setId(id);
 		image.setProduct(new Product(productId));
 		this.imageRepository.save(image);
@@ -38,6 +39,11 @@ public class ImageService {
 
 	@Transactional
 	public void deleteImage(Long id) {
-		this.imageRepository.deleteById(id);		
+		this.imageRepository.deleteById(id);
+	}
+
+	private void checkIfExistImage(Long id) {
+		this.imageRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Image " + id + " does not exist"));
 	}
 }

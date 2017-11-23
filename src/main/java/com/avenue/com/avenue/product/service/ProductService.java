@@ -35,14 +35,16 @@ public class ProductService {
 
 	@Transactional
 	public void createProduct(Product product) {
-		validateProductParent(product.getParentProduct());
+		checkIfExistProduct(product.getParentProduct());
 		this.productRespository.save(product);
 	}
 
 	@Transactional
 	public void updateProduct(Long id, Product product) {
+		checkIfExistProduct(new Product(id));
+		checkIfExistProduct(product.getParentProduct());
+
 		product.setId(id);
-		validateProductParent(product.getParentProduct());
 		this.productRespository.save(product);
 	}
 
@@ -65,7 +67,7 @@ public class ProductService {
 		return ProductConverter.convert(this.productRespository.findByParentProduct_Id(id));
 	}
 	
-	private void validateProductParent(Product parent) {
+	private void checkIfExistProduct(Product parent) {
 		if (Objects.nonNull(parent)) {
 			this.productRespository.findById(parent.getId())
 					.orElseThrow(() -> new IllegalArgumentException("Product " + parent.getId() + " does not exist"));

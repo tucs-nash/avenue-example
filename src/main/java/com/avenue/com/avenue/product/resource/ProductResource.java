@@ -2,6 +2,7 @@ package com.avenue.com.avenue.product.resource;
 
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -21,6 +22,7 @@ import com.avenue.com.avenue.product.service.ProductService;
 
 @Path("products")
 @Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class ProductResource {
 
 	private ProductService productService;

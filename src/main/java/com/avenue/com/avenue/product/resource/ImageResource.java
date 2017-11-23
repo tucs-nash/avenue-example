@@ -2,6 +2,7 @@ package com.avenue.com.avenue.product.resource;
 
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -19,6 +20,7 @@ import com.avenue.com.avenue.product.model.ImageDTO;
 import com.avenue.com.avenue.product.service.ImageService;
 
 @Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class ImageResource {
 
 	private ImageService imageService;
